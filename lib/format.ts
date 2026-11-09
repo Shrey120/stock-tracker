@@ -14,9 +14,9 @@ export function todayIST(): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(new Date());
 }
 
-export function daysUntil(date?: string | null): number | null {
+export function daysUntil(date?: string | null, today?: string): number | null {
   if (!date) return null;
-  const [ty, tm, td] = todayIST().split("-").map(Number);
+  const [ty, tm, td] = (today ?? todayIST()).split("-").map(Number);
   const [y, m, d] = date.slice(0, 10).split("-").map(Number);
   return Math.round((Date.UTC(y, m - 1, d) - Date.UTC(ty, tm - 1, td)) / 86400000);
 }
@@ -36,8 +36,8 @@ export function weekday(date?: string | null): string {
 
 export type DueState = "overdue" | "today" | "soon" | "later" | "none";
 
-export function dueState(date?: string | null): { state: DueState; label: string; days: number | null } {
-  const n = daysUntil(date);
+export function dueState(date?: string | null, today?: string): { state: DueState; label: string; days: number | null } {
+  const n = daysUntil(date, today);
   if (n === null) return { state: "none", label: "No date", days: null };
   if (n < 0) return { state: "overdue", label: `Overdue ${-n}d`, days: n };
   if (n === 0) return { state: "today", label: "Today", days: n };

@@ -1,13 +1,14 @@
 import Link from "next/link";
 import RecheckTable from "@/components/RecheckTable";
 import { getLatest } from "@/lib/data";
-import { dueState, shortDate } from "@/lib/format";
+import { dueState, shortDate, todayIST } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const rows = await getLatest();
-  const states = rows.map((r) => dueState(r.recheck_on).state);
+  const today = todayIST();
+  const states = rows.map((r) => dueState(r.recheck_on, today).state);
   const overdue = states.filter((s) => s === "overdue" || s === "today").length;
   const soon = states.filter((s) => s === "soon").length;
   const next = rows.map((r) => r.recheck_on).filter(Boolean).sort()[0] as string | undefined;
@@ -38,7 +39,7 @@ export default async function Home() {
         ))}
       </div>
 
-      <RecheckTable rows={rows} />
+      <RecheckTable rows={rows} today={today} />
 
       <p className="text-xs text-muted">
         Cards are added by Claude after each verdict, or by hand on <Link href="/add" className="underline">Add card</Link>. Analysis, not licensed investment advice.

@@ -87,7 +87,7 @@ export function TrendChart({ points, unit, color = "var(--accent)" }: { points: 
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-lg font-medium num">{f(last.value)}</span>
         {change !== null && (
-          <span className={`text-xs num ${change > 0 ? "text-good" : change < 0 ? "text-bad" : "text-muted"}`}>
+          <span className="text-xs num text-muted">
             {change > 0 ? "▲" : change < 0 ? "▼" : "■"} {f(Math.abs(change))} since {shortDate(first.date)}
           </span>
         )}

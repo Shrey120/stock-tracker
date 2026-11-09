@@ -25,8 +25,8 @@ const dueClass: Record<DueState, string> = {
   none: toneClass.neutral,
 };
 
-export function DueChip({ date }: { date?: string | null }) {
-  const d = dueState(date);
+export function DueChip({ date, today }: { date?: string | null; today?: string }) {
+  const d = dueState(date, today);
   return <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium whitespace-nowrap ${dueClass[d.state]}`}>{d.label}</span>;
 }
 

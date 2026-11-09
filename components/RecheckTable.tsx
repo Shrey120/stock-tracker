@@ -15,7 +15,7 @@ const sd = (d?: string | null) => {
   return new Date(Date.UTC(y, m - 1, day)).toLocaleDateString("en-IN", { day: "numeric", month: "short", timeZone: "UTC" });
 };
 
-export default function RecheckTable({ rows }: { rows: LatestCard[] }) {
+export default function RecheckTable({ rows, today }: { rows: LatestCard[]; today: string }) {
   const [sort, setSort] = useState<SortKey>("recheck");
   const [q, setQ] = useState("");
 
@@ -73,7 +73,7 @@ export default function RecheckTable({ rows }: { rows: LatestCard[] }) {
                     <td className="px-4 py-3"><VerdictPill verdict={r.verdict} /></td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <div className="num">{sd(r.recheck_on)}</div>
-                      <div className="mt-1"><DueChip date={r.recheck_on} /></div>
+                      <div className="mt-1"><DueChip date={r.recheck_on} today={today} /></div>
                     </td>
                     <td className="px-4 py-3 max-w-md"><p className="line-clamp-3 leading-snug">{r.what_to_do}</p></td>
                     <td className="px-4 py-3 text-right num whitespace-nowrap">{rs(r.cmp)}<div className="text-xs text-muted">{sd(r.card_date)}</div></td>
@@ -94,7 +94,7 @@ export default function RecheckTable({ rows }: { rows: LatestCard[] }) {
                   </div>
                   <VerdictPill verdict={r.verdict} />
                 </div>
-                <div className="mt-2 flex items-center gap-2 text-xs"><span className="text-muted">Recheck {sd(r.recheck_on)}</span><DueChip date={r.recheck_on} /></div>
+                <div className="mt-2 flex items-center gap-2 text-xs"><span className="text-muted">Recheck {sd(r.recheck_on)}</span><DueChip date={r.recheck_on} today={today} /></div>
                 <p className="mt-2 text-sm leading-snug line-clamp-3">{r.what_to_do}</p>
               </li>
             ))}

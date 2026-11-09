@@ -48,7 +48,7 @@ export default async function StockPage({ params }: { params: { ticker: string }
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 max-w-2xl">
           <h1 className="text-2xl font-semibold tracking-tight">{stock.name}</h1>
-          <p className="text-sm text-muted mt-0.5">{stock.ticker} · {stock.exchange} · {stock.sector}</p>
+          <p className="text-sm text-muted mt-0.5">{[stock.ticker, stock.exchange, stock.sector].filter(Boolean).join(" · ")}</p>
           {stock.description && <p className="text-sm mt-2 leading-relaxed">{stock.description}</p>}
         </div>
         <div className="text-right">
@@ -146,14 +146,14 @@ export default async function StockPage({ params }: { params: { ticker: string }
         </div>
       </Section>
 
-      <div className="grid gap-5 lg:grid-cols-2">
+      {!!(c.plain?.going_right?.length || c.plain?.to_watch?.length) && <div className="grid gap-5 lg:grid-cols-2">
         <Section title="What's going right">
           <ul className="list-disc pl-5 space-y-1.5 text-sm">{(c.plain?.going_right ?? []).map((x) => <li key={x}>{x}</li>)}</ul>
         </Section>
         <Section title="What to watch">
           <ul className="list-disc pl-5 space-y-1.5 text-sm">{(c.plain?.to_watch ?? []).map((x) => <li key={x}>{x}</li>)}</ul>
         </Section>
-      </div>
+      </div>}
 
       <div className="grid gap-5 lg:grid-cols-2">
         <Section title="Fundamentals"><RowTable rows={c.fundamentals} /></Section>
@@ -161,7 +161,7 @@ export default async function StockPage({ params }: { params: { ticker: string }
       </div>
 
       <div className="grid gap-5 lg:grid-cols-2">
-        <Section title="Market backdrop" note={c.market?.mood ? `Mood: ${c.market.mood}` : undefined}>
+        {(c.market?.mood || c.market?.plain || c.market?.drivers?.length) ? <Section title="Market backdrop" note={c.market?.mood ? `Mood: ${c.market.mood}` : undefined}>
           <div className="flex flex-wrap gap-2 text-xs mb-3">
             {c.market?.nifty_pct !== undefined && <span className={`rounded px-2 py-1 num ${c.market.nifty_pct >= 0 ? tone.good : tone.bad}`}>Nifty {pct(c.market.nifty_pct, true)}</span>}
             {c.market?.sector_index && c.market.sector_pct !== undefined && <span className={`rounded px-2 py-1 num ${c.market.sector_pct >= 0 ? tone.good : tone.bad}`}>{c.market.sector_index} {pct(c.market.sector_pct, true)}</span>}
@@ -172,7 +172,7 @@ export default async function StockPage({ params }: { params: { ticker: string }
           {!!c.market?.next_macro?.length && (
             <p className="text-sm mt-3"><span className="label mr-2">Next macro</span>{c.market.next_macro.map((m) => `${m.event} ${shortDate(m.date)}`).join(" · ")}</p>
           )}
-        </Section>
+        </Section> : <Section title="Market backdrop"><p className="text-sm text-muted">Not recorded on this card.</p></Section>}
         <Section title="News to know">
           {c.news?.length ? (
             <ol className="space-y-3">
