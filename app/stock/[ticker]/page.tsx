@@ -7,6 +7,8 @@ import { pct, rupees, shortDate, titleCase, verdictColor, verdictTone, weekday }
 import type { Card } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 type TrendDef = { key: string; label: string; unit: "rs" | "pct" | "x" | "num"; get: (c: Card) => number | null | undefined; color?: string };
 
