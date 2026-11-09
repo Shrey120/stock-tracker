@@ -1,0 +1,311 @@
+{
+ "ticker": "CUPID",
+ "name": "Cupid Ltd",
+ "sector": "FMCG / personal care",
+ "exchange": "NSE",
+ "description": "Makes condoms, lubricants, IVD test kits and now perfumes and deodorants; sells in India and abroad",
+ "card_date": "2026-11-09",
+ "as_of": "2026-11-09T12:47:00+05:30",
+ "verdict": "HOLD",
+ "why": "The business is excellent: sales up 158% and profit up 193% year on year, ROE 28%, almost no debt, and guidance raised in September. The chart is still an uptrend that has been consolidating for five weeks. The conflict is price: ~330x trailing and ~183x this year's guided profit, against an industry P/E of 36. Fundamentals plus an uptrend would normally mean Accumulate (small); overridden to Hold because results land on 11 Nov and the stock is already slightly over the 15% cap.",
+ "what_to_do": "Do nothing before results: keep all 50 shares, don't add. After results, sell 25 shares (~₹8,570) if Q2 revenue is under ₹200 Cr, FY27 guidance is cut, or it closes below ₹278 two days running. No trim just for the cap: December's ₹25k takes it to ~13%.",
+ "cmp": 342.7,
+ "mcap_cr": 46115,
+ "off_high_pct": -7.4,
+ "hold_horizon": "9–12 months",
+ "recheck_on": "2026-11-12",
+ "levels_valid_until": "Until results on 11 Nov 2026",
+ "watch": "Q2 results: revenue ≥₹200 Cr and ₹800 Cr FY27 guidance kept. Also whether receivables shrink.",
+ "data_confidence": "Moderate",
+ "confidence_note": "Q2 results in 2 days will change the fundamentals; pledge, interest cover and 5-yr P/E weren't available.",
+ "fundamentals": [
+  {
+   "label": "Valuation",
+   "value": "P/E 332 TTM vs industry 36 · ~183x FY27 guided profit · P/B 101",
+   "read": "Expensive"
+  },
+  {
+   "label": "Growth",
+   "value": "Jun-26 qtr: Rev ₹155 Cr (+158% YoY) · PAT ₹44 Cr (+193%) · 5yr Rev CAGR 19% / PAT 30%",
+   "read": "Accelerating"
+  },
+  {
+   "label": "Returns",
+   "value": "ROE 27.6% · ROCE 33.9%",
+   "read": "Good"
+  },
+  {
+   "label": "Health",
+   "value": "Borrowings ₹56 Cr vs ₹450 Cr equity (D/E ~0.12) · interest cover unavailable",
+   "read": "Safe"
+  },
+  {
+   "label": "Cash",
+   "value": "CFO ₹46 Cr vs PAT ₹108 Cr in FY26 (43% conversion) · debtor days 103",
+   "read": "Concern"
+  },
+  {
+   "label": "Ownership",
+   "value": "Promoter 47.7% (rising) · Pledge unavailable · FII 4.7% ↑ · DII 1.2% ↑",
+   "read": "Improving"
+  }
+ ],
+ "technicals": [
+  {
+   "label": "Trend",
+   "value": "50DMA ₹307 · 200DMA ₹185 · range ₹302–370 since Oct",
+   "read": "Uptrend"
+  },
+  {
+   "label": "Momentum",
+   "value": "RSI 59.9 · MACD 7.90 vs signal 8.37, gap narrowing",
+   "read": "Strong"
+  },
+  {
+   "label": "Volume",
+   "value": "20-day avg below 50-day avg",
+   "read": "Quiet consolidation"
+  },
+  {
+   "label": "Levels",
+   "value": "Support ₹307 / ₹302 / ₹251 · Resistance ₹366–370 · ATR ₹14.4",
+   "read": ""
+  }
+ ],
+ "market": {
+  "mood": "Neutral",
+  "nifty_pct": -0.3,
+  "sector_index": "Nifty FMCG",
+  "sector_pct": -0.6,
+  "drivers": [
+   "Profit-taking in IT after a 7-day rally (Nifty +8.6% last week)",
+   "Brent back near $98"
+  ],
+  "exposure": "Flat today, in line with the market. Low beta (0.58). Oil-linked inputs mean a mild cost headwind if crude stays high; a richly valued small-cap gets hit in any risk-off.",
+  "next_macro": [
+   {
+    "event": "India CPI",
+    "date": "2026-11-12"
+   },
+   {
+    "event": "RBI policy",
+    "date": "2026-12-04"
+   }
+  ],
+  "plain": "After last week's big rally the market is taking a breather, and oil is creeping back up near $98. Cupid moved flat with the market."
+ },
+ "news": [
+  {
+   "date": "2026-11-04",
+   "text": "Exclusive V2 Retail tie-up across 425+ stores; targets ₹400 Cr extra annual revenue",
+   "tone": "positive"
+  },
+  {
+   "date": "2026-11-04",
+   "text": "Board meeting on 11 Nov to approve Q2 results",
+   "tone": "neutral"
+  },
+  {
+   "date": "2026-10-15",
+   "text": "Converted 30 lakh Baazar Style warrants at ₹328.25; 56 lakh remain",
+   "tone": "neutral"
+  },
+  {
+   "date": "2026-09-30",
+   "text": "Expects Q2 revenue >₹200 Cr; FY27 guidance raised to ₹800 Cr+ revenue / ₹250 Cr+ profit",
+   "tone": "positive"
+  }
+ ],
+ "levels": {
+  "kind": "conditional",
+  "trigger": 278,
+  "stop": null,
+  "entry_low": null,
+  "entry_high": null,
+  "ceiling": null,
+  "lines": [
+   {
+    "label": "Turns to Accumulate",
+    "text": "Daily close above ₹370 (new high) after results confirm guidance, and only once back under the 15% cap"
+   },
+   {
+    "label": "Turns to Trim",
+    "text": "Two daily closes below ₹278 (Oct low ₹302.3 − 1.5 × ATR ₹14.4 = ₹280.7, moved below ₹280) → sell 25 shares"
+   },
+   {
+    "label": "Downside if hit",
+    "text": "−19% from CMP, −1.9% from your ₹283.3 average"
+   }
+  ]
+ },
+ "scenarios": [
+  {
+   "case": "bear",
+   "price": 171,
+   "pct": -50,
+   "condition": "FY27 profit ~₹230 Cr (misses guidance), multiple halves to ~100x"
+  },
+  {
+   "case": "base",
+   "price": 354,
+   "pct": 3,
+   "condition": "FY28 profit ~₹340 Cr on pace to the FY29 ₹1,500 Cr revenue target, at 140x"
+  },
+  {
+   "case": "bull",
+   "price": 506,
+   "pct": 48,
+   "condition": "Guidance raised again, V2 Retail adds real revenue, FY28 ~₹400 Cr at 170x"
+  }
+ ],
+ "portfolio": {
+  "held": true,
+  "qty": 50,
+  "avg": 283.3,
+  "pnl": 2975,
+  "pct_holdings": 17.8,
+  "pct_total": 15.7,
+  "sector_label": "FMCG",
+  "sector_pct": 19.8
+ },
+ "metrics": {
+  "pe": 332,
+  "pe_forward": 183,
+  "pb": 101,
+  "roe": 27.6,
+  "roce": 33.9,
+  "rsi": 59.9,
+  "dma50": 307,
+  "dma200": 185,
+  "atr": 14.4,
+  "rev_growth_yoy": 158,
+  "pat_growth_yoy": 193,
+  "promoter_pct": 47.69,
+  "fii_pct": 4.69,
+  "dii_pct": 1.19,
+  "trigger_level": 278,
+  "base_target": 354,
+  "bear_target": 171,
+  "bull_target": 506
+ },
+ "price_series": [
+  [
+   "2025-11-10",
+   52.3
+  ],
+  [
+   "2025-11-27",
+   65.8
+  ],
+  [
+   "2025-12-16",
+   84.2
+  ],
+  [
+   "2026-01-05",
+   78
+  ],
+  [
+   "2026-01-23",
+   79.4
+  ],
+  [
+   "2026-02-11",
+   86.8
+  ],
+  [
+   "2026-03-02",
+   76.9
+  ],
+  [
+   "2026-03-20",
+   79.6
+  ],
+  [
+   "2026-04-13",
+   92.5
+  ],
+  [
+   "2026-05-04",
+   126.7
+  ],
+  [
+   "2026-05-21",
+   120.2
+  ],
+  [
+   "2026-06-10",
+   150.6
+  ],
+  [
+   "2026-06-30",
+   189.9
+  ],
+  [
+   "2026-07-17",
+   214.8
+  ],
+  [
+   "2026-08-05",
+   252.1
+  ],
+  [
+   "2026-08-24",
+   286.4
+  ],
+  [
+   "2026-09-10",
+   277.4
+  ],
+  [
+   "2026-09-30",
+   311.6
+  ],
+  [
+   "2026-10-21",
+   340.8
+  ],
+  [
+   "2026-11-08",
+   342.7
+  ]
+ ],
+ "plain": {
+  "going_right": [
+   "Sales roughly 2.5x a year ago; profit nearly 3x",
+   "Management raised its yearly target in September",
+   "New deal to sell in 425+ V2 Retail stores",
+   "Owners keep buying more shares; big funds starting to buy",
+   "Almost no debt"
+  ],
+  "to_watch": [
+   "Priced far above other consumer companies; any slip can hit hard",
+   "Customers pay slowly, so profit isn't fully turning into cash",
+   "Results on Wed 11 Nov could move it 10%+ either way",
+   "Already up about 6x in a year"
+  ],
+  "next_event": {
+   "text": "Q2 FY27 results",
+   "date": "2026-11-11"
+  }
+ },
+ "notes": "Since the Oct card (also Hold; trimmed 94→50 shares) the stock has gone sideways between ₹302 and ₹370 and never came near the downside trigger.",
+ "sources": [
+  {
+   "title": "Screener.in, Cupid consolidated",
+   "url": "https://www.screener.in/company/CUPID/consolidated/"
+  },
+  {
+   "title": "Tickertape, Cupid",
+   "url": "https://www.tickertape.in/stocks/cupid-CUCO"
+  },
+  {
+   "title": "Business Today, guidance raised (1 Oct 2026)",
+   "url": "https://www.businesstoday.in/markets/stocks/story/cupid-shares-rise-after-strong-q2-expectations-revised-fy27-guidance-multibagger-stock-558945-2026-10-01"
+  },
+  {
+   "title": "ETV Bharat, market on 9 Nov 2026",
+   "url": "https://www.etvbharat.com/en/business/stock-market-on-november-9-2026-sensex-nifty50-crude-oil-prices-us-iran-enn26110900927"
+  }
+ ]
+}

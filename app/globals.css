@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ledger-style tracker: cool slate neutrals, one ink-blue accent, semantic good/warn/bad */
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --line: #e2e5ea; --ink: #14181f; --muted: #5d6573;
+  --accent: #2456c9; --accent-bg: #e8eefb;
+  --good: #11753f; --good-bg: #e3f4ea; --warn: #9a5b00; --warn-bg: #fdf1dc; --bad: #b42323; --bad-bg: #fbe7e7;
+  --chart-grid: #e6e8ec; --chart-muted: #9aa1ad;
+  --font-sans: "IBM Plex Sans"; --font-mono: "IBM Plex Mono";
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1216; --panel: #171b21; --line: #2a3039; --ink: #e8ebf0; --muted: #98a1ae;
+    --accent: #7ea2f3; --accent-bg: #1c2740;
+    --good: #5cc98b; --good-bg: #13291d; --warn: #e8b259; --warn-bg: #2d2311; --bad: #f08080; --bad-bg: #321717;
+    --chart-grid: #262c34; --chart-muted: #6b7380;
+    color-scheme: dark;
+  }
+}
+html, body { background: var(--bg); color: var(--ink); }
+body { font-feature-settings: "tnum" 1; }
+.num { font-variant-numeric: tabular-nums; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.label { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+a:focus-visible, button:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
