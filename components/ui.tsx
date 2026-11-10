@@ -1,4 +1,5 @@
 import type { Verdict } from "@/lib/types";
+import { meaningOf } from "@/lib/glossary";
 import { dueState, titleCase, verdictTone, type DueState } from "@/lib/format";
 
 const toneClass = {
@@ -38,7 +39,8 @@ export function ReadTag({ read }: { read?: string }) {
     : /concern|weak|risk|declin|downtrend|leveraged|negative/.test(r) ? "bad"
     : /expensive|watch|slow|overbought|moderate|range|transition/.test(r) ? "warn"
     : "neutral";
-  return <span className={`inline-flex rounded px-1.5 py-0.5 text-[11px] font-medium whitespace-nowrap ${toneClass[tone]}`}>{read}</span>;
+  const m = meaningOf(read) ?? meaningOf(read.toLowerCase());
+  return <span className={`inline-flex rounded px-1.5 py-0.5 text-[11px] font-medium whitespace-nowrap ${toneClass[tone]} ${m ? "term end" : ""}`} {...(m ? { tabIndex: 0, "data-tip": m } : {})}>{read}</span>;
 }
 
 export function Section({ title, note, children, className = "" }: { title: string; note?: string; children: React.ReactNode; className?: string }) {

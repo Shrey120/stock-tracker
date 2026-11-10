@@ -5,6 +5,8 @@ import { DueChip, ReadTag, Section, VerdictPill, tone } from "@/components/ui";
 import { getStock } from "@/lib/data";
 import { pct, rupees, shortDate, titleCase, verdictColor, verdictTone, weekday } from "@/lib/format";
 import type { Card } from "@/lib/types";
+import { G, Term } from "@/components/Glossary";
+import { SCENARIO_MEANING } from "@/lib/glossary";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -49,7 +51,10 @@ export default async function StockPage({ params }: { params: { ticker: string }
 
   return (
     <div className="space-y-5">
-      <Link href="/" className="text-sm text-muted hover:text-ink">← All rechecks</Link>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <Link href="/" className="text-sm text-muted hover:text-ink">← All rechecks</Link>
+        <span className="text-xs text-muted">Words with a <span className="term" style={{cursor:"default"}}>dotted underline</span> explain themselves: hover, or tap on a phone.</span>
+      </div>
 
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 max-w-2xl">
@@ -59,8 +64,8 @@ export default async function StockPage({ params }: { params: { ticker: string }
         </div>
         <div className="text-right">
           <div className="text-3xl font-medium num">{rupees(c.cmp)}</div>
-          <div className="text-sm text-muted num">{c.off_high_pct !== null && c.off_high_pct !== undefined ? `${Math.abs(c.off_high_pct)}% below 52-week high` : ""}</div>
-          <div className="text-xs text-muted mt-1">Card of {shortDate(c.card_date, true)}{c.mcap_cr ? ` · Mcap ₹${new Intl.NumberFormat("en-IN").format(c.mcap_cr)} Cr` : ""}</div>
+          <div className="text-sm text-muted num">{c.off_high_pct !== null && c.off_high_pct !== undefined ? <>{Math.abs(c.off_high_pct)}% below <Term>52-week high</Term></> : ""}</div>
+          <div className="text-xs text-muted mt-1">Card of {shortDate(c.card_date, true)}{c.mcap_cr ? <> · <Term>Mcap</Term> ₹{new Intl.NumberFormat("en-IN").format(c.mcap_cr)} Cr</> : ""}</div>
         </div>
       </header>
 
@@ -73,12 +78,12 @@ export default async function StockPage({ params }: { params: { ticker: string }
             </span>
           )}
         </div>
-        {c.why && <p className="mt-2 text-sm leading-relaxed text-ink">{c.why}</p>}
+        {c.why && <p className="mt-2 text-sm leading-relaxed text-ink"><G text={c.why} /></p>}
       </div>
 
       <div className="card p-4 sm:p-5 border-2" style={{ borderColor: verdictColor[c.verdict] }}>
         <div className="label">What to do now</div>
-        <p className="mt-1.5 text-base sm:text-lg leading-relaxed font-medium">{c.what_to_do}</p>
+        <p className="mt-1.5 text-base sm:text-lg leading-relaxed font-medium"><G text={c.what_to_do} /></p>
       </div>
 
       <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
@@ -98,17 +103,17 @@ export default async function StockPage({ params }: { params: { ticker: string }
             <dl className="grid grid-cols-2 gap-3 mb-3 text-sm">
               <div><dt className="label">Entry zone</dt><dd className="num font-medium">{rupees(c.levels.entry_low)} – {rupees(c.levels.entry_high)}</dd></div>
               <div><dt className="label">Ceiling</dt><dd className="num font-medium">{rupees(c.levels.ceiling)}</dd></div>
-              <div><dt className="label">Stop</dt><dd className="num font-medium text-bad">{rupees(c.levels.stop)}</dd></div>
+              <div><dt className="label"><Term>Stop</Term></dt><dd className="num font-medium text-bad">{rupees(c.levels.stop)}</dd></div>
             </dl>
           )}
           <ul className="space-y-2.5 text-sm">
             {(c.levels?.lines ?? []).map((l) => (
-              <li key={l.label}><span className="font-medium">{l.label}:</span> <span className="leading-relaxed">{l.text}</span></li>
+              <li key={l.label}><span className="font-medium">{l.label}:</span> <span className="leading-relaxed"><G text={l.text} /></span></li>
             ))}
           </ul>
         </Section>
         <Section title="Watch" note="The one thing most likely to break this view">
-          <p className="text-sm leading-relaxed">{c.watch ?? "—"}</p>
+          <p className="text-sm leading-relaxed">{c.watch ? <G text={c.watch} /> : "—"}</p>
           {c.plain?.next_event && (
             <p className="text-sm mt-3"><span className="label mr-2">Next event</span>{c.plain.next_event.text} · {weekday(c.plain.next_event.date)} {shortDate(c.plain.next_event.date, true)}</p>
           )}
@@ -122,7 +127,7 @@ export default async function StockPage({ params }: { params: { ticker: string }
         <Section title="9–12 month view" note="Scenarios, not forecasts" className="lg:col-span-2">
           <ScenarioChart scenarios={c.scenarios} cmp={c.cmp} />
           <ul className="mt-2 space-y-1.5 text-xs text-muted">
-            {c.scenarios.map((s) => <li key={s.case}><span className="font-medium text-ink">{titleCase(s.case)}:</span> {s.condition}</li>)}
+            {c.scenarios.map((s) => <li key={s.case}><span className="font-medium text-ink"><Term meaning={SCENARIO_MEANING[s.case]}>{titleCase(s.case)}</Term>:</span> <G text={s.condition} /></li>)}
           </ul>
         </Section>
       </div>
@@ -145,7 +150,7 @@ export default async function StockPage({ params }: { params: { ticker: string }
         <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
           {trends.map((t) => (
             <div key={t.key} className="min-w-0">
-              <div className="label">{t.label}</div>
+              <div className="label"><G text={t.label} /></div>
               <TrendChart points={t.points} unit={t.unit} color={t.color} />
             </div>
           ))}
@@ -154,10 +159,10 @@ export default async function StockPage({ params }: { params: { ticker: string }
 
       {!!(c.plain?.going_right?.length || c.plain?.to_watch?.length) && <div className="grid gap-5 lg:grid-cols-2">
         <Section title="What's going right">
-          <ul className="list-disc pl-5 space-y-1.5 text-sm">{(c.plain?.going_right ?? []).map((x) => <li key={x}>{x}</li>)}</ul>
+          <ul className="list-disc pl-5 space-y-1.5 text-sm">{(c.plain?.going_right ?? []).map((x) => <li key={x}><G text={x} /></li>)}</ul>
         </Section>
         <Section title="What to watch">
-          <ul className="list-disc pl-5 space-y-1.5 text-sm">{(c.plain?.to_watch ?? []).map((x) => <li key={x}>{x}</li>)}</ul>
+          <ul className="list-disc pl-5 space-y-1.5 text-sm">{(c.plain?.to_watch ?? []).map((x) => <li key={x}><G text={x} /></li>)}</ul>
         </Section>
       </div>}
 
@@ -169,12 +174,12 @@ export default async function StockPage({ params }: { params: { ticker: string }
       <div className="grid gap-5 lg:grid-cols-2">
         {(c.market?.mood || c.market?.plain || c.market?.drivers?.length) ? <Section title="Market backdrop" note={c.market?.mood ? `Mood: ${c.market.mood}` : undefined}>
           <div className="flex flex-wrap gap-2 text-xs mb-3">
-            {c.market?.nifty_pct !== undefined && <span className={`rounded px-2 py-1 num ${c.market.nifty_pct >= 0 ? tone.good : tone.bad}`}>Nifty {pct(c.market.nifty_pct, true)}</span>}
+            {c.market?.nifty_pct !== undefined && <span className={`rounded px-2 py-1 num ${c.market.nifty_pct >= 0 ? tone.good : tone.bad}`}><Term>Nifty</Term> {pct(c.market.nifty_pct, true)}</span>}
             {c.market?.sector_index && c.market.sector_pct !== undefined && <span className={`rounded px-2 py-1 num ${c.market.sector_pct >= 0 ? tone.good : tone.bad}`}>{c.market.sector_index} {pct(c.market.sector_pct, true)}</span>}
           </div>
-          {c.market?.plain && <p className="text-sm leading-relaxed">{c.market.plain}</p>}
-          {!!c.market?.drivers?.length && <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">{c.market.drivers.map((d) => <li key={d}>{d}</li>)}</ul>}
-          {c.market?.exposure && <p className="text-sm mt-2 text-muted leading-relaxed">{c.market.exposure}</p>}
+          {c.market?.plain && <p className="text-sm leading-relaxed"><G text={c.market.plain} /></p>}
+          {!!c.market?.drivers?.length && <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">{c.market.drivers.map((d) => <li key={d}><G text={d} /></li>)}</ul>}
+          {c.market?.exposure && <p className="text-sm mt-2 text-muted leading-relaxed"><G text={c.market.exposure} /></p>}
           {!!c.market?.next_macro?.length && (
             <p className="text-sm mt-3"><span className="label mr-2">Next macro</span>{c.market.next_macro.map((m) => `${m.event} ${shortDate(m.date)}`).join(" · ")}</p>
           )}
@@ -185,7 +190,7 @@ export default async function StockPage({ params }: { params: { ticker: string }
               {c.news.map((n, i) => (
                 <li key={i} className="flex gap-3 text-sm">
                   <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${toneDot[n.tone ?? "neutral"]}`} aria-label={n.tone ?? "neutral"} />
-                  <div><span className="text-muted num mr-2">{shortDate(n.date)}</span>{n.text}</div>
+                  <div><span className="text-muted num mr-2">{shortDate(n.date)}</span><G text={n.text} /></div>
                 </li>
               ))}
             </ol>
@@ -208,13 +213,13 @@ export default async function StockPage({ params }: { params: { ticker: string }
                 <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${Math.min(100, (c.portfolio.pct_holdings / 30) * 100)}%`, background: c.portfolio.pct_holdings > 15 ? "var(--warn)" : "var(--accent)" }} />
                 <div className="absolute inset-y-0 w-0.5 bg-ink" style={{ left: "50%" }} />
               </div>
-              <div className="flex justify-between text-[11px] text-muted mt-1"><span>0%</span><span>15% cap</span><span>30%</span></div>
+              <div className="flex justify-between text-[11px] text-muted mt-1"><span>0%</span><span><Term>15% cap</Term></span><span>30%</span></div>
             </div>
           )}
         </Section>
       )}
 
-      {c.notes && <Section title="Notes"><p className="text-sm leading-relaxed">{c.notes}</p></Section>}
+      {c.notes && <Section title="Notes"><p className="text-sm leading-relaxed"><G text={c.notes} /></p></Section>}
 
       <Section title="All cards" note="Newest first. Open one to see what it said at the time.">
         <ul className="divide-y divide-line">
@@ -230,11 +235,11 @@ export default async function StockPage({ params }: { params: { ticker: string }
                   <span className="ml-auto text-xs text-muted hidden group-open:inline">Hide</span>
                 </summary>
                 <div className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
-                  <div><div className="label">What to do</div><p className="mt-1 leading-relaxed">{x.what_to_do}</p></div>
-                  <div><div className="label">Why</div><p className="mt-1 leading-relaxed text-muted">{x.why}</p></div>
+                  <div><div className="label">What to do</div><p className="mt-1 leading-relaxed"><G text={x.what_to_do} /></p></div>
+                  <div><div className="label">Why</div><p className="mt-1 leading-relaxed text-muted"><G text={x.why} /></p></div>
                   {(x.levels?.lines ?? []).length > 0 && (
                     <div className="sm:col-span-2"><div className="label">Levels</div>
-                      <ul className="mt-1 space-y-1">{x.levels.lines!.map((l) => <li key={l.label}><span className="font-medium">{l.label}:</span> {l.text}</li>)}</ul>
+                      <ul className="mt-1 space-y-1">{x.levels.lines!.map((l) => <li key={l.label}><span className="font-medium">{l.label}:</span> <G text={l.text} /></li>)}</ul>
                     </div>
                   )}
                 </div>
@@ -263,8 +268,8 @@ function RowTable({ rows }: { rows: { label: string; value: string; read?: strin
     <dl className="divide-y divide-line">
       {rows.map((r) => (
         <div key={r.label} className="grid grid-cols-[6.5rem_1fr_auto] gap-3 py-2.5 text-sm items-start">
-          <dt className="font-medium">{r.label}</dt>
-          <dd className="text-muted leading-snug min-w-0">{r.value}</dd>
+          <dt className="font-medium"><G text={r.label} /></dt>
+          <dd className="text-muted leading-snug min-w-0"><G text={r.value} /></dd>
           <dd><ReadTag read={r.read} /></dd>
         </div>
       ))}

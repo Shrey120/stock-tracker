@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { LatestCard, Verdict } from "@/lib/types";
 import { DueChip, VerdictPill } from "./ui";
+import { Term } from "./Glossary";
 
 type SortKey = "recheck" | "verdict" | "weight" | "name" | "updated";
 const verdictOrder: Record<Verdict, number> = { AVOID: 0, BUY: 1, ACCUMULATE: 2, WAIT: 3, HOLD: 4 };
@@ -59,7 +60,11 @@ export default function RecheckTable({ rows, today }: { rows: LatestCard[]; toda
               <thead>
                 <tr className="text-left text-muted">
                   {["Stock", "Verdict", "Recheck", "What to do now", "Price", "Trigger", "Weight"].map((h, i) => (
-                    <th key={h} className={`px-4 py-2.5 font-medium text-xs ${i >= 4 ? "text-right" : ""}`}>{h}</th>
+                    <th key={h} className={`px-4 py-2.5 font-medium text-xs ${i >= 4 ? "text-right" : ""}`}>
+                      {h === "Trigger" ? <Term place="below end" meaning="The stop or downside trigger price. If the stock closes below it, you act (trim or sell).">Trigger</Term>
+                        : h === "Weight" ? <Term place="below end" meaning="How much of your shares this stock is. Your limit is 15% per stock.">Weight</Term>
+                        : h === "Price" ? <Term place="below end" meaning="The price on the day of the latest card (date shown below it), not live.">Price</Term> : h}
+                    </th>
                   ))}
                 </tr>
               </thead>
